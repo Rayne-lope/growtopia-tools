@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Growtopia Hub — Profit Counter</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{ primary:{50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e'} } } } }
+  </script>
+  <style>
+    :root{
+      --font-body:'Poppins',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji';
+      --font-heading:'Montserrat','Poppins',ui-sans-serif,system-ui;
+    }
+    body{ font-family:var(--font-body); }
+    h1,h2,h3,.heading-font{ font-family:var(--font-heading); letter-spacing:.2px; }
+    .wlimg{ display:inline-block; height:1rem; width:1rem; vertical-align:-3px; margin-left:.25rem; }
+    .num { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#0B1220] via-[#0E1B3B] to-[#1F2A44] text-slate-100">
+
+  <!-- Sidebar -->
+  <aside role="navigation"
+         class="fixed bottom-0 left-0 right-0 z-20 lg:fixed lg:inset-y-0 lg:left-0 lg:w-[72px] lg:h-screen
+                bg-white/5 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/10 shadow-xl
+                flex lg:flex-col justify-between items-center lg:py-8 px-4 lg:px-0">
+    <div class="flex lg:flex-col gap-4 lg:gap-6 w-full lg:w-[72px] lg:items-center">
+      <div class="hidden lg:block">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+
+      <a href="hub.html" aria-label="Home" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      </a>
+
+      <a href="calculator.html" aria-label="Calculator" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+      </a>
+
+      <a href="profit-counter.html" aria-label="Profit Counter" aria-current="page" class="p-2 rounded-lg bg-white/10 ring-1 ring-indigo-500/40 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m0 0l3-3m-3 3l-3-3M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg>
+      </a>
+
+      <a href="#" aria-label="Role Quest" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </a>
+
+      <a href="#" aria-label="Notes" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586L20 8.414V19a2 2 0 01-2 2z"/></svg>
+      </a>
+
+      <a href="#" aria-label="Updates" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </a>
+    </div>
+
+  <a href="#" aria-label="Settings" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+    </svg>
+  </a>
+  </aside>
+
+  <!-- Wrapper -->
+  <div class="lg:ml-[72px] min-h-screen flex flex-col">
+    <main class="flex-1 pb-20 lg:pb-0">
+      <!-- Top Bar -->
+      <header class="sticky top-0 z-30 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-lg/10 px-4 lg:px-6 py-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4 flex-1 max-w-3xl mr-4">
+            <div class="relative flex-1">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <input type="text" class="block w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Search (cosmetic)">
+            </div>
+            <div class="hidden sm:flex items-center gap-2 bg-emerald-500/10 text-emerald-300 px-3 py-1.5 rounded-full border border-emerald-400/20 whitespace-nowrap">
+              <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-sm font-medium"><span class="tabular-nums font-semibold">94,438</span> online</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="hidden md:flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+              <span class="text-sm font-medium text-slate-100">42.5</span>
+              <img src="../image/wl.png" alt="WL" class="h-4 w-4 -mt-[1px]">
+            </div>
+            <button class="p-2 rounded-full hover:bg-white/10 hover:ring-1 hover:ring-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400" aria-label="Notifications">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1"/></svg>
+            </button>
+            <div class="flex items-center space-x-2">
+              <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-sm font-medium">SM</div>
+              <span class="hidden lg:inline text-sm font-medium">Sung Ma Suk</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Container -->
+      <div class="max-w-7xl mx-auto px-4 lg:px-6 py-8">
+        <div class="flex items-center justify-between mb-6">
+          <h1 class="text-3xl heading-font font-bold">Profit Counter</h1>
+          <div class="flex items-center gap-2">
+            <button id="btnExport" class="text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10">Export CSV</button>
+            <input id="fileImport" type="file" accept=".csv" class="hidden">
+            <button id="btnImport" class="text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10">Import CSV</button>
+            <button id="btnClearAll" class="text-xs px-3 py-1.5 rounded-lg bg-rose-500/20 border border-rose-500/30 hover:bg-rose-500/30 text-rose-200">Clear All</button>
+          </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-6">
+          <!-- Left -->
+          <div class="flex-1 space-y-6">
+            <!-- Quick Add -->
+            <section class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <span class="inline-flex h-10 w-10 rounded-lg bg-cyan-500/20 items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m0 0l3-3m-3 3l-3-3"/></svg>
+                  </span>
+                  <div>
+                    <h2 class="heading-font font-semibold">Quick Add</h2>
+                    <p class="text-xs text-slate-400">Tambah transaksi Buy/Sell. Preview tidak mengubah total sampai klik <b>Add</b>.</p>
+                  </div>
+                </div>
+                <span class="text-[11px] text-slate-400 px-2 py-0.5 rounded-full bg-white/5 border border-white/10">Per WL: <b>x/1</b> • Each WL: <b>WL/item</b></span>
+              </div>
+
+              <!-- Toolbar -->
+              <div class="flex flex-wrap items-center gap-3 mb-5">
+                <!-- Side -->
+                <div class="inline-flex bg-white/5 border border-white/10 rounded-lg p-1">
+                  <button type="button" id="btnBuy"  class="px-3 py-1.5 text-sm rounded-md bg-emerald-600/80 text-white">Buy</button>
+                  <button type="button" id="btnSell" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10">Sell</button>
+                </div>
+
+                <!-- Price type -->
+                <div class="inline-flex bg-white/5 border border-white/10 rounded-lg p-1">
+                  <input class="sr-only peer" type="radio" id="ptPer" name="priceType" value="per" checked>
+                  <label for="ptPer" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10 peer-checked:bg-indigo-600/90 peer-checked:text-white transition-colors">Per WL (x/1)</label>
+
+                  <input class="sr-only peer" type="radio" id="ptEach" name="priceType" value="each">
+                  <label for="ptEach" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10 peer-checked:bg-indigo-600/90 peer-checked:text-white transition-colors">Each WL</label>
+                </div>
+
+                <!-- Round up -->
+                <div class="inline-flex bg-white/5 border border-white/10 rounded-lg p-1">
+                  <input id="roundUp" type="checkbox" class="sr-only peer">
+                  <label for="roundUp" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10 peer-checked:bg-indigo-600/90 peer-checked:text-white transition-colors">
+                    Round up to whole <img src="../image/wl.png" class="wlimg" alt="WL">
+                  </label>
+                </div>
+              </div>
+
+              <!-- Inputs -->
+              <form id="formTxn" class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <div class="md:col-span-6">
+                  <label class="text-xs text-slate-400">Item</label>
+                  <input id="itemName" list="itemList" type="text" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="e.g., Fishing Fly">
+                  <datalist id="itemList"></datalist>
+                </div>
+                <div class="md:col-span-3">
+                  <label id="rateLabel" class="text-xs text-slate-400">Rate (Per WL — x per 1 WL)</label>
+                  <input id="rateValue" type="number" min="0" step="0.0001" value="40" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+                <div class="md:col-span-3">
+                  <label class="text-xs text-slate-400">Quantity</label>
+                  <input id="quantity" type="number" min="0" step="1" value="200" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+
+                <div class="md:col-span-6">
+                  <label class="text-xs text-slate-400">Tags (comma separated)</label>
+                  <input id="tags" type="text" placeholder="farm, flip" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+                <div class="md:col-span-6">
+                  <label class="text-xs text-slate-400">World (optional)</label>
+                  <input id="world" type="text" placeholder="MYWORLD" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+
+                <div class="md:col-span-12">
+                  <label class="text-xs text-slate-400">Note</label>
+                  <input id="note" type="text" placeholder="Optional note" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+              </form>
+
+              <!-- Presets -->
+              <div class="mt-3">
+                <div class="text-xs text-slate-400 mb-1">Quick quantity presets</div>
+                <div class="flex flex-wrap gap-2">
+                  <button data-q="50"  class="px-3 py-1.5 text-xs rounded-md bg-white/5 border border-white/10 hover:bg-white/10">50</button>
+                  <button data-q="100" class="px-3 py-1.5 text-xs rounded-md bg-white/5 border border-white/10 hover:bg-white/10">100</button>
+                  <button data-q="200" class="px-3 py-1.5 text-xs rounded-md bg-white/5 border border-white/10 hover:bg-white/10">200 (stack)</button>
+                  <button data-q="1000" class="px-3 py-1.5 text-xs rounded-md bg-white/5 border border-white/10 hover:bg-white/10">1,000</button>
+                  <button data-q="2000" class="px-3 py-1.5 text-xs rounded-md bg-white/5 border border-white/10 hover:bg-white/10">2,000</button>
+                </div>
+              </div>
+
+              <!-- Preview -->
+              <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="rounded-lg border border-white/10 bg-white/5 p-4">
+                  <p class="text-[11px] text-slate-400 mb-1">Preview (no commit)</p>
+                  <div id="previewPrimary" class="text-lg font-semibold">—</div>
+                  <div id="previewSecondary" class="text-sm text-slate-300 mt-1">Fill fields to see preview.</div>
+                </div>
+                <div class="rounded-lg border border-white/10 bg-white/5 p-4">
+                  <p class="text-[11px] text-slate-400 mb-1">Inventory check</p>
+                  <div id="previewInv" class="text-sm">—</div>
+                </div>
+              </div>
+
+              <div class="mt-5 flex flex-wrap gap-3">
+                <button id="btnAdd" class="px-4 py-2 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  Add
+                </button>
+                <button id="btnReset" class="px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Reset</button>
+              </div>
+            </section>
+
+            <!-- Ledger / Inventory -->
+            <section class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
+              <div class="flex items-center justify-between mb-4">
+                <div class="inline-flex rounded-lg border border-white/10 bg-white/5 p-1">
+                  <button id="tabLedger" class="px-3 py-1.5 text-sm rounded-md bg-indigo-600/90 text-white">Ledger</button>
+                  <button id="tabInventory" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10">Inventory</button>
+                </div>
+                <div class="flex items-center gap-2">
+                  <select id="filterItem" class="px-2 py-1.5 text-xs rounded-lg bg-white/5 border border-white/10">
+                    <option value="">All items</option>
+                  </select>
+                  <select id="filterSide" class="px-2 py-1.5 text-xs rounded-lg bg-white/5 border border-white/10">
+                    <option value="">Both</option>
+                    <option value="buy">Buy</option>
+                    <option value="sell">Sell</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="panelLedger" class="space-y-2">
+                <div class="text-sm text-slate-400">No transactions yet.</div>
+              </div>
+
+              <div id="panelInventory" class="hidden">
+                <div class="text-sm text-slate-400">No inventory yet.</div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Right: Summary -->
+          <div class="lg:w-80 space-y-6">
+            <section class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="heading-font font-semibold">Summary</h3>
+                <select id="filterPeriod" class="px-2 py-1.5 text-xs rounded-lg bg-white/5 border border-white/10">
+                  <option value="all">All time</option>
+                  <option value="today">Today</option>
+                  <option value="7d">Last 7d</option>
+                  <option value="30d">Last 30d</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                  <div class="flex items-center justify-between">
+                    <p class="text-[11px] text-slate-400">Realized P&amp;L</p>
+                    <span class="h-6 w-6 rounded-md bg-indigo-500/20 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-indigo-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 17l6-6 4 4 7-7"/></svg>
+                    </span>
+                  </div>
+                  <p id="sumPnl" class="text-lg font-semibold">—</p>
+                </div>
+
+                <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                  <div class="flex items-center justify-between">
+                    <p class="text-[11px] text-slate-400">Revenue</p>
+                    <span class="h-6 w-6 rounded-md bg-emerald-500/20 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V3m0 8a4 4 0 100 8h2a4 4 0 100-8h-2z"/></svg>
+                    </span>
+                  </div>
+                  <p id="sumRevenue" class="text-lg font-semibold">—</p>
+                </div>
+
+                <!-- Cost spans 2 columns -->
+                <div class="rounded-lg border border-white/10 bg-white/5 p-3 col-span-2">
+                  <div class="flex items-center justify-between">
+                    <p class="text-[11px] text-slate-400">Cost</p>
+                    <span class="h-6 w-6 rounded-md bg-rose-500/20 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-rose-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4m8 8V4"/></svg>
+                    </span>
+                  </div>
+                  <p id="sumCost" class="text-lg font-semibold">—</p>
+                </div>
+
+                <div class="rounded-lg border border-white/10 bg-white/5 p-3 col-span-2">
+                  <div class="flex items-center justify-between">
+                    <p class="text-[11px] text-slate-400"># Trades</p>
+                    <span class="h-6 w-6 rounded-md bg-slate-500/20 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8M8 11h8m-6 4h6"/></svg>
+                    </span>
+                  </div>
+                  <p id="sumTrades" class="text-lg font-semibold">—</p>
+                </div>
+              </div>
+
+              <div class="mt-3 text-[11px] text-slate-400">
+                P&L dihitung saat <b>Sell</b> (FIFO). Per WL = x/1; Each WL = WL/item.
+              </div>
+            </section>
+
+            <!-- Quick Tips -->
+            <section class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
+              <h3 class="heading-font font-semibold mb-3 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 6a9 9 0 110 12A9 9 0 0112 6z"/></svg>
+                Quick Tips
+              </h3>
+              <ul class="text-sm text-slate-300 space-y-2">
+                <li class="flex gap-2"><svg class="h-5 w-5 flex-shrink-0 text-emerald-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m0 0l3-3m-3 3l-3-3"/></svg> <span><b>Buy</b> menambah stok (lot baru, FIFO).</span></li>
+                <li class="flex gap-2"><svg class="h-5 w-5 flex-shrink-0 text-fuchsia-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1"/></svg> <span><b>Sell</b> menghabiskan lot lama dulu → hitung COGS &amp; P&amp;L.</span></li>
+                <li class="flex gap-2"><svg class="h-5 w-5 flex-shrink-0 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span><b>Preview</b> tidak mengubah total. Klik <b>Add</b> untuk commit.</span></li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-white/5 backdrop-blur-xl border-t border-white/10 py-6 px-4 lg:px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="flex items-center space-x-4 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span class="text-sm text-slate-300">Growtopia Hub © 2025</span>
+          </div>
+          <div class="flex space-x-6">
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Terms</a>
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Privacy</a>
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">FAQ</a>
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ===== Helpers =====
+    const $ = id => document.getElementById(id);
+    const fmt = n => new Intl.NumberFormat().format(n);
+    const fmt2 = n => Number(n).toLocaleString(undefined,{maximumFractionDigits:2});
+    const nowTs = () => Date.now();
+    const slug = s => (s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+    const wlIcon = () => '<img src="../image/wl.png" alt="WL" class="wlimg pix">';
+    const wlHTML = n => `<span>${fmt2(n)}</span>${wlIcon()}`;
+    const setHTML = (id, html) => { $(id).innerHTML = html; };
+
+    const LS_TX = 'gt_transactions';
+    const loadTx = () => { try{ return JSON.parse(localStorage.getItem(LS_TX)||'[]'); }catch(e){ return []; } }
+    const saveTx = list => localStorage.setItem(LS_TX, JSON.stringify(list));
+
+    // ===== UI state =====
+    let side = 'buy';
+    let priceType = 'per';
+    let activeTab = 'ledger';
+
+    $('btnBuy').onclick  = () => setSide('buy');
+    $('btnSell').onclick = () => setSide('sell');
+    function setSide(s){
+      side = s;
+      $('btnBuy').classList.toggle('bg-emerald-600/80', side==='buy');
+      $('btnSell').classList.toggle('bg-emerald-600/80', side==='sell');
+      $('btnBuy').classList.toggle('hover:bg-white/10', side!=='buy');
+      $('btnSell').classList.toggle('hover:bg-white/10', side!=='sell');
+      renderPreview();
+    }
+
+    document.querySelectorAll('input[name="priceType"]').forEach(r=>{
+      r.addEventListener('change', ()=>{
+        priceType = document.querySelector('input[name="priceType"]:checked').value;
+        $('rateLabel').textContent = priceType==='per'
+          ? 'Rate (Per WL — x per 1 WL)'
+          : 'Rate (Each WL — WL per item)';
+        renderPreview();
+      });
+    });
+
+    document.querySelectorAll('[data-q]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        $('quantity').value = btn.dataset.q;
+        renderPreview();
+      });
+    });
+
+    ['itemName','rateValue','quantity','roundUp','tags','world','note'].forEach(id=>{
+      $(id).addEventListener('input', renderPreview);
+    });
+
+    $('tabLedger').onclick   = ()=>{ activeTab='ledger'; tabRender(); };
+    $('tabInventory').onclick= ()=>{ activeTab='inventory'; tabRender(); };
+    function tabRender(){
+      $('tabLedger').classList.toggle('bg-indigo-600/90', activeTab==='ledger');
+      $('tabInventory').classList.toggle('bg-indigo-600/90', activeTab==='inventory');
+      $('panelLedger').classList.toggle('hidden', activeTab!=='ledger');
+      $('panelInventory').classList.toggle('hidden', activeTab!=='inventory');
+    }
+
+    $('filterPeriod').addEventListener('change', renderAll);
+    $('filterSide').addEventListener('change', renderAll);
+    $('filterItem').addEventListener('change', renderAll);
+
+    $('btnReset').onclick = resetForm;
+    $('btnAdd').onclick   = addTransaction;
+    $('btnClearAll').onclick = ()=>{
+      if (confirm('Hapus semua transaksi?')){ saveTx([]); renderAll(); }
+    };
+    $('btnExport').onclick = exportCSV;
+    $('btnImport').onclick = ()=> $('fileImport').click();
+    $('fileImport').addEventListener('change', importCSV);
+
+    // ===== Core calc =====
+    function calcWL({priceType, rate, qty, roundUp}){
+      if (!rate || !qty) return 0;
+      let wl = priceType==='per' ? (qty / rate) : (qty * rate);
+      if (roundUp) wl = Math.ceil(wl);
+      return wl;
+    }
+
+    // Rebuild inventory + ledger (FIFO)
+    function rebuild(transactions, {period='all', sideFilter='', itemFilter=''}){
+      const tx = [...transactions].sort((a,b)=>a.ts-b.ts);
+      const inv = {};
+      const views = [];
+      const sum = {revenue:0, cost:0, pnl:0, trades:0};
+
+      const now = new Date();
+      const start = (()=> {
+        if (period==='today'){ const d=new Date(); d.setHours(0,0,0,0); return d.getTime(); }
+        if (period==='7d'){ return now.getTime() - 7*86400000; }
+        if (period==='30d'){ return now.getTime() - 30*86400000; }
+        return -Infinity;
+      })();
+
+      function ensureItem(id){
+        if(!inv[id]) inv[id]={lots:[], qty:0, costWl:0};
+        return inv[id];
+      }
+
+      for (const t of tx){
+        const itemId = slug(t.itemName||'unknown');
+        const store = ensureItem(itemId);
+
+        if (t.side==='buy'){
+          const lotId='lot_'+Math.random().toString(36).slice(2,9);
+          const wlCost = t.wlTotal;
+          const qty = t.qty;
+          const unitCost = qty>0 ? wlCost/qty : 0;
+          store.lots.push({id:lotId, qty, unitCost});
+          store.qty += qty;
+          store.costWl += wlCost;
+
+          const inPeriod=(t.ts>=start);
+          const passSide=!sideFilter || sideFilter===t.side;
+          const passItem=!itemFilter || itemFilter===itemId;
+          if(inPeriod && passSide && passItem){
+            views.push({...t, itemId, pnl:null, cogs:null, revenue:null});
+            sum.trades++;
+          }
+        } else {
+          let remain=t.qty;
+          let costUsed=0;
+          const lotsUsed=[];
+          while(remain>0 && store.lots.length){
+            const lot=store.lots[0];
+            const take=Math.min(remain, lot.qty);
+            const cost = take * lot.unitCost;
+            costUsed += cost;
+            lotsUsed.push({lotId:lot.id, qty:take, costWl:cost});
+            lot.qty -= take;
+            store.qty -= take;
+            store.costWl -= cost;
+            remain -= take;
+            if (lot.qty<=0) store.lots.shift();
+          }
+          const shortage=Math.max(0, remain);
+          const revenue=t.wlTotal;
+          const pnl = shortage>0 ? null : (revenue - costUsed);
+
+          const inPeriod=(t.ts>=start);
+          const passSide=!sideFilter || sideFilter===t.side;
+          const passItem=!itemFilter || itemFilter===itemId;
+          if(inPeriod && passSide && passItem){
+            views.push({...t, itemId, pnl, cogs:costUsed, revenue, lotsUsed, shortage});
+            sum.trades++;
+            if (pnl !== null){
+              sum.revenue += revenue;
+              sum.cost    += costUsed;
+              sum.pnl     += pnl;
+            }
+          }
+        }
+      }
+      return {inventory:inv, ledger:views.sort((a,b)=>b.ts-a.ts), summary:sum};
+    }
+
+    // ===== Preview (no commit) =====
+    function renderPreview(){
+      const item = $('itemName').value.trim();
+      const rate = +$('rateValue').value || 0;
+      const qty  = +$('quantity').value || 0;
+      const roundUp = $('roundUp').checked;
+
+      if (!rate || !qty){
+        setHTML('previewPrimary','—');
+        setHTML('previewSecondary','Fill fields to see preview.');
+        setHTML('previewInv','—');
+        return;
+      }
+
+      const wl = calcWL({priceType, rate, qty, roundUp});
+      const rateText = priceType==='per'
+        ? `${fmt2(rate)}/1 ${wlIcon()}`
+        : `${fmt2(rate)} ${wlIcon()} each`;
+
+      const line1 = (side==='buy' ? 'Cost: ' : 'Revenue: ') + wlHTML(wl);
+      const line2 = `${side==='buy'?'Buy':'Sell'} <b>${fmt(qty)}</b> ${item||'items'} @ ${rateText}`;
+
+      const tx = loadTx();
+      const {inventory} = rebuild(tx,{period:'all',sideFilter:'',itemFilter:''});
+      const id = slug(item||'unknown');
+      if (side==='sell'){
+        const store = inventory[id];
+        if (!store || store.qty < qty){
+          setHTML('previewInv', `Not enough stock. Available: <b>${fmt(store?store.qty:0)}</b>.`);
+        } else {
+          let remain=qty, costUsed=0;
+          const lots = (store.lots||[]).map(x=>({...x}));
+          while(remain>0 && lots.length){
+            const lot=lots[0];
+            const take=Math.min(remain, lot.qty);
+            costUsed += take*lot.unitCost;
+            lot.qty -= take; remain -= take;
+            if(lot.qty<=0) lots.shift();
+          }
+          const pnlEst = wl - costUsed;
+          setHTML('previewInv', `Est. COGS: ${wlHTML(costUsed)} → Est. P&L: <span class="${pnlEst>=0?'text-emerald-300':'text-rose-300'}">${wlHTML(pnlEst)}</span>`);
+        }
+      } else {
+        setHTML('previewInv', `This will add a lot: <b>${fmt(qty)}</b> @ total ${wlHTML(wl)}`);
+      }
+
+      setHTML('previewPrimary', line1);
+      setHTML('previewSecondary', line2);
+    }
+
+    // ===== Add transaction =====
+    function addTransaction(){
+      const item = $('itemName').value.trim();
+      const rate = +$('rateValue').value || 0;
+      const qty  = +$('quantity').value || 0;
+      const roundUp = $('roundUp').checked;
+      const tags = $('tags').value.trim();
+      const world= $('world').value.trim();
+      const note = $('note').value.trim();
+
+      if (!item){ alert('Item cannot be empty.'); return; }
+      if (!(rate>0)){ alert('Rate must be > 0'); return; }
+      if (!(qty>0)){ alert('Quantity must be > 0'); return; }
+
+      const wlTotal = calcWL({priceType, rate, qty, roundUp});
+      const tx = loadTx();
+
+      if (side==='sell'){
+        const {inventory} = rebuild(tx,{period:'all',sideFilter:'',itemFilter:''});
+        const store = inventory[slug(item)];
+        if (!store || store.qty < qty){
+          alert(`Not enough stock to sell.\nAvailable: ${fmt(store?store.qty:0)}, want: ${fmt(qty)}`);
+          return;
+        }
+      }
+
+      const rec = {
+        id: 'txn_'+Math.random().toString(36).slice(2,9),
+        ts: nowTs(),
+        side, itemName:item,
+        qty, priceType, priceValue:rate,
+        roundUp,
+        wlTotal,
+        note, world,
+        tags: tags ? tags.split(',').map(s=>s.trim()).filter(Boolean) : []
+      };
+      tx.push(rec);
+      saveTx(tx);
+      resetForm(false);
+      renderAll();
+    }
+
+    function resetForm(clearAll=true){
+      if (clearAll){
+        $('itemName').value=''; $('rateValue').value=40; $('quantity').value=200;
+        $('roundUp').checked=false; $('tags').value=''; $('world').value=''; $('note').value='';
+        document.querySelector('input[name="priceType"][value="per"]').checked = true;
+        priceType='per'; setSide('buy');
+      }
+      setHTML('previewPrimary','—');
+      setHTML('previewSecondary','Fill fields to see preview.');
+      setHTML('previewInv','—');
+    }
+
+    // ===== Render all =====
+    function renderAll(){
+      const tx = loadTx();
+
+      const itemMap = {};
+      tx.forEach(t=> itemMap[slug(t.itemName)] = t.itemName);
+      const dl=$('itemList'); dl.innerHTML='';
+      Object.values(itemMap).forEach(name=>{ const opt=document.createElement('option'); opt.value=name; dl.appendChild(opt); });
+
+      const sel=$('filterItem'); const keep=sel.value;
+      sel.innerHTML='<option value="">All items</option>';
+      Object.entries(itemMap).sort((a,b)=>a[1].localeCompare(b[1])).forEach(([id,name])=>{
+        const o=document.createElement('option'); o.value=id; o.textContent=name; sel.appendChild(o);
+      });
+      if (keep && itemMap[keep]) sel.value=keep;
+
+      const period = $('filterPeriod').value;
+      const sideFilter = $('filterSide').value;
+      const itemFilter = $('filterItem').value;
+
+      const {inventory, ledger, summary} = rebuild(tx,{period, sideFilter, itemFilter});
+      renderSummary(summary);
+      renderLedger(ledger);
+      renderInventory(inventory);
+      renderPreview();
+    }
+
+    function renderSummary(sum){
+      setHTML('sumPnl',     sum.trades? ((sum.pnl>=0?'+':'')+wlHTML(sum.pnl)) : '—');
+      setHTML('sumRevenue', sum.trades? wlHTML(sum.revenue) : '—');
+      setHTML('sumCost',    sum.trades? wlHTML(sum.cost)    : '—');
+      $('sumTrades').textContent = sum.trades? new Intl.NumberFormat().format(sum.trades) : '—';
+    }
+
+    function renderLedger(list){
+      const wrap=$('panelLedger'); wrap.innerHTML='';
+      if(!list.length){ wrap.innerHTML='<div class="text-sm text-slate-400">No transactions for this filter.</div>'; return; }
+      list.forEach(t=>{
+        const row=document.createElement('div');
+        row.className='rounded-lg bg-white/5 border border-white/10 p-3 flex gap-3 items-start';
+        const ts=new Date(t.ts).toLocaleString();
+        const rateText = t.priceType==='per'
+          ? `${fmt2(t.priceValue)}/1 ${wlIcon()}`
+          : `${fmt2(t.priceValue)} ${wlIcon()} each`;
+        const badge = t.side==='buy'
+          ? '<span class="px-2 py-0.5 rounded-full text-[11px] bg-emerald-500/20 text-emerald-300">BUY</span>'
+          : '<span class="px-2 py-0.5 rounded-full text-[11px] bg-fuchsia-500/20 text-fuchsia-300">SELL</span>';
+        const pnlFrag = t.side==='sell'
+          ? (t.pnl===null
+              ? `<span class="text-xs text-rose-300/90">Insufficient stock at time</span>`
+              : `<span class="text-xs ${t.pnl>=0?'text-emerald-300':'text-rose-300'}">P&L: ${wlHTML(t.pnl)}</span>`)
+          : '';
+
+        const tagFrag = (t.tags&&t.tags.length)? t.tags.map(x=>`<span class="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[10px]">${x}</span>`).join(' ') : '';
+
+        row.innerHTML=`
+          <div class="h-9 w-9 rounded-md ${t.side==='buy'?'bg-emerald-500/15':'bg-fuchsia-500/15'} flex items-center justify-center mt-0.5">
+            ${t.side==='buy'
+              ? '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m0 0l3-3m-3 3l-3-3"/></svg>'
+              : '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16V8m0 0l-3 3m3-3l3 3"/></svg>'
+            }
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2 text-[11px] text-slate-400">
+              <span>${ts}</span> ${badge}
+              ${t.world?`<span class="px-1.5 py-0.5 rounded bg-white/5 border border-white/10">${t.world}</span>`:''}
+            </div>
+            <div class="text-sm">
+              <span class="font-medium">${t.itemName||'—'}</span>
+              <span class="text-slate-400">•</span>
+              <span>${fmt(t.qty)} @ ${rateText}</span>
+              <span class="text-slate-400">•</span>
+              <span class="font-medium">${t.side==='buy'?'Cost':'Revenue'}: ${wlHTML(t.wlTotal)}</span>
+            </div>
+            <div class="mt-1 flex flex-wrap items-center gap-2">
+              ${pnlFrag}
+              ${tagFrag}
+              ${t.note?`<span class="text-xs text-slate-400">• ${t.note}</span>`:''}
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button data-edit="${t.id}"  class="px-2 py-1 text-xs rounded-lg bg-white/5 border border-white/10 hover:bg-white/10">Edit</button>
+            <button data-del="${t.id}"   class="px-2 py-1 text-xs rounded-lg bg-rose-500/20 border border-rose-500/30 hover:bg-rose-500/30 text-rose-200">Delete</button>
+          </div>
+        `;
+        wrap.appendChild(row);
+      });
+
+      wrap.querySelectorAll('[data-del]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id=btn.getAttribute('data-del');
+          const tx=loadTx().filter(x=>x.id!==id);
+          saveTx(tx); renderAll();
+        });
+      });
+      wrap.querySelectorAll('[data-edit]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id=btn.getAttribute('data-edit');
+          const tx=loadTx();
+          const t=tx.find(x=>x.id===id);
+          if(!t) return;
+          setSide(t.side);
+          document.querySelector(`input[name="priceType"][value="${t.priceType}"]`).checked = true;
+          priceType=t.priceType;
+          $('rateLabel').textContent = priceType==='per'
+            ? 'Rate (Per WL — x per 1 WL)'
+            : 'Rate (Each WL — WL per item)';
+          $('itemName').value=t.itemName;
+          $('rateValue').value=t.priceValue;
+          $('quantity').value=t.qty;
+          $('roundUp').checked=!!t.roundUp;
+          $('tags').value=(t.tags||[]).join(', ');
+          $('world').value=t.world||'';
+          $('note').value=t.note||'';
+          saveTx(tx.filter(x=>x.id!==id));
+          renderAll();
+        });
+      });
+    }
+
+    function renderInventory(inv){
+      const wrap=$('panelInventory'); wrap.innerHTML='';
+      const keys=Object.keys(inv);
+      if(!keys.length){ wrap.innerHTML='<div class="text-sm text-slate-400">No inventory yet.</div>'; return; }
+      keys.sort().forEach(id=>{
+        const it=inv[id]; const qty=it.qty||0; const cost=it.costWl||0; const avg=qty>0?cost/qty:0;
+        const card=document.createElement('div');
+        card.className='rounded-lg bg-white/5 border border-white/10 p-3';
+        card.innerHTML=`
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-medium">${prettyName(id)}</div>
+              <div class="text-xs text-slate-400">
+                Qty: <b>${fmt(qty)}</b> • Avg cost: <b>${wlHTML(avg)}</b> • Total cost: <b>${wlHTML(cost)}</b>
+              </div>
+            </div>
+            <button class="px-2 py-1 text-xs rounded-lg bg-white/5 border border-white/10 hover:bg-white/10" data-expand="${id}">Lots</button>
+          </div>
+          <div class="mt-2 hidden" id="lots_${id}">
+            ${it.lots.length? it.lots.map(l=>`
+              <div class="mt-2 rounded border border-white/10 bg-white/5 p-2 text-xs flex justify-between">
+                <div>Lot ${l.id.slice(-4)} • Qty ${fmt(l.qty)}</div>
+                <div>Unit ${wlHTML(l.unitCost)} • Est. cost ${wlHTML(l.unitCost*l.qty)}</div>
+              </div>
+            `).join('') : '<div class="mt-2 text-xs text-slate-400">No lots.</div>'}
+          </div>
+        `;
+        wrap.appendChild(card);
+      });
+      wrap.querySelectorAll('[data-expand]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id=btn.getAttribute('data-expand');
+          $('lots_'+id).classList.toggle('hidden');
+        });
+      });
+    }
+
+    function prettyName(sl){
+      const tx=loadTx();
+      for(let i=tx.length-1;i>=0;i--){
+        const t=tx[i]; if(slug(t.itemName)===sl) return t.itemName;
+      }
+      return sl.replace(/_/g,' ');
+    }
+
+    // ===== CSV Export/Import =====
+    function exportCSV(){
+      const tx=loadTx();
+      if(!tx.length){ alert('No data.'); return; }
+      const header=['id','ts','side','itemName','qty','priceType','priceValue','roundUp','wlTotal','note','world','tags'];
+      const rows=tx.map(t=>[
+        t.id, t.ts, t.side, quote(t.itemName), t.qty, t.priceType, t.priceValue, (t.roundUp?1:0), t.wlTotal, quote(t.note||''), quote(t.world||''), quote((t.tags||[]).join('|'))
+      ].join(','));
+      const csv=header.join(',')+'\n'+rows.join('\n');
+      const blob=new Blob([csv],{type:'text/csv'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='profit_counter.csv'; a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function importCSV(e){
+      const file=e.target.files[0]; if(!file) return;
+      const reader=new FileReader();
+      reader.onload=()=>{
+        const lines=reader.result.split(/\r?\n/).filter(Boolean);
+        const header=lines.shift().split(',');
+        const idx=Object.fromEntries(header.map((h,i)=>[h,i]));
+        const list=lines.map(line=>{
+          const cells=splitCSV(line);
+          return {
+            id: cells[idx.id] || ('txn_'+Math.random().toString(36).slice(2,9)),
+            ts: +cells[idx.ts] || nowTs(),
+            side: cells[idx.side] || 'buy',
+            itemName: unquote(cells[idx.itemName]||''),
+            qty: +cells[idx.qty]||0,
+            priceType: cells[idx.priceType]||'per',
+            priceValue: +cells[idx.priceValue]||0,
+            roundUp: (cells[idx.roundUp]|0)==1,
+            wlTotal: +cells[idx.wlTotal]||0,
+            note: unquote(cells[idx.note]||''),
+            world: unquote(cells[idx.world]||''),
+            tags: (unquote(cells[idx.tags]||'').split('|').filter(Boolean))
+          };
+        }).filter(t=>t.itemName && t.qty>0 && t.priceValue>0);
+        const current=loadTx();
+        saveTx(current.concat(list));
+        e.target.value='';
+        renderAll();
+      };
+      reader.readAsText(file);
+    }
+    function quote(s){ return `"${String(s).replace(/"/g,'""')}"`; }
+    function unquote(s){ return String(s||'').replace(/^"(.*)"$/,'$1').replace(/""/g,'"'); }
+    function splitCSV(line){
+      const out=[]; let cur=''; let q=false;
+      for(let i=0;i<line.length;i++){
+        const c=line[i];
+        if(c==='"'){ if(q && line[i+1]==='"'){ cur+='"'; i++; } else { q=!q; } }
+        else if(c===',' && !q){ out.push(cur); cur=''; }
+        else cur+=c;
+      }
+      out.push(cur); return out;
+    }
+
+    // init
+    setSide('buy'); tabRender(); renderAll();
+  </script>
+</body>
+</html>

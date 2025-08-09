@@ -1,0 +1,28 @@
+name: Fetch DQ
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # jalan tiap ~5 menit
+  workflow_dispatch:       # bisa dijalankan manual dari tab Actions
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run fetch script
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+        run: node scripts/fetch_dq.js
+
+      - name: Commit & push if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update dq.json"
+          file_pattern: public/dq.json

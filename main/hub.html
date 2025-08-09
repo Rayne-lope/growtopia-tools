@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Growtopia Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',
+              500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#0B1220] via-[#0E1B3B] to-[#1F2A44] text-slate-100">
+  <!-- Sidebar -->
+  <aside role="navigation" class="fixed bottom-0 left-0 right-0 z-20 lg:fixed lg:inset-y-0 lg:left-0 lg:w-[72px] lg:h-screen bg-white/5 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/10 shadow-xl flex lg:flex-col justify-between items-center lg:py-8 px-4 lg:px-0">
+    <div class="flex lg:flex-col gap-4 lg:gap-6 w-full lg:w-[72px] lg:items-center">
+      <div class="hidden lg:block">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+      </div>
+      <a href="#" aria-label="Home" aria-current="page" class="p-2 rounded-lg bg-white/10 ring-1 ring-indigo-500/40 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      </a>
+      <a href="calculator.html" aria-label="Calculator" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+      </a>
+      <a href="profiter-calculator.html" aria-label="Profit" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </a>
+      <a href="#" aria-label="Role Quest" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </a>
+      <a href="#" aria-label="Notes" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586L20 8.414V19a2 2 0 01-2 2z"/></svg>
+      </a>
+      <a href="#" aria-label="Updates" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </a>
+    </div>
+    <a href="#" aria-label="Settings" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+    </a>
+  </aside>
+
+  <!-- Wrapper -->
+  <div class="lg:ml-[72px] min-h-screen flex flex-col">
+    <main class="flex-1 pb-20 lg:pb-0">
+      <!-- Top Bar -->
+      <header class="sticky top-0 z-30 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-lg/10 px-4 lg:px-6 py-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4 flex-1 max-w-3xl mr-4">
+            <div class="relative flex-1">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input type="text" class="block w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" placeholder="Search items, players...">
+            </div>
+
+            <div aria-live="polite" aria-label="Players online" class="hidden sm:flex items-center gap-2 bg-emerald-500/10 text-emerald-300 px-3 py-1.5 rounded-full border border-emerald-400/20 whitespace-nowrap">
+              <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-sm font-medium"><span class="tabular-nums font-semibold">94,438</span> online</span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <div class="hidden md:flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+              <span class="text-sm font-medium text-slate-100">42.5 WL</span>
+              <span class="text-xs text-slate-400">≈ $12.75</span>
+            </div>
+            <button aria-label="Notifications" class="p-2 rounded-full hover:bg-white/10 hover:ring-1 hover:ring-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1"/>
+              </svg>
+            </button>
+            <div class="flex items-center space-x-2">
+              <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-sm font-medium">SM</div>
+              <span class="hidden lg:inline text-sm font-medium">Sung Ma Suk</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Container -->
+      <div class="max-w-7xl mx-auto px-4 lg:px-6 py-6">
+        <!-- Hero -->
+        <section class="mb-12">
+          <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div class="flex-1">
+              <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-300 mb-3">Growtopia Hub</h1>
+              <p class="text-lg text-slate-300 mb-6 max-w-2xl">Your ultimate companion for trading, farming, and mastering the world of Growtopia.</p>
+              <div class="flex space-x-4">
+                <button class="px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-lg font-medium hover:from-indigo-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-[#0E1B3B] transition-all">Explore</button>
+                <button class="px-6 py-2.5 bg-white/5 border border-white/10 rounded-lg font-medium hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-[#0E1B3B] transition-all">Create</button>
+              </div>
+            </div>
+            <div class="flex-1 w-full">
+              <div class="w-full max-w-2xl lg:max-w-none aspect-[16/4] bg-white/5 rounded-xl border border-white/10 overflow-hidden shadow-xl mx-auto">
+                <img src="\image\GarudaBanner2025.jpg" alt="Banner" class="w-full h-full object-cover opacity-90">
+              </div>
+            </div>
+          </div>
+        </section>
+
+       
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-6">Feature &amp; Tools</h2>
+
+          <div class="flex flex-col lg:flex-row gap-6 items-start">
+            <!-- Left: Tools Grid -->
+            <div class="flex-1 lg:max-w-3xl">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Calculator -->
+                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-3">
+                      <div class="h-10 w-10 rounded-lg bg-indigo-500/20 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                      </div>
+                      <h3 class="font-semibold">Calculator</h3>
+                    </div>
+                    <span class="text-xs text-slate-400">WL/DL/GBL</span>
+                  </div>
+                  <p class="text-sm text-slate-300 mb-4">Counting Items.</p>
+                  <a href="calculator.html"
+   class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20"
+   role="button">Open</a>
+                </article>
+
+                <!-- Profit Counter -->
+                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-3">
+                      <div class="h-10 w-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m0 0l3-3m-3 3l-3-3M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg>
+                      </div>
+                      <h3 class="font-semibold">Profit Counter</h3>
+                    </div>
+                    <span class="text-xs text-slate-400">Track</span>
+                  </div>
+                  <p class="text-sm text-slate-300 mb-4">Track buy/sell &amp; net profit.</p>
+                  <a href="profiter-calculator.html"
+   class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20"
+   role="button">Open</a>
+                </article>
+
+                <!-- Price Watch -->
+                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-3">
+                      <div class="h-10 w-10 rounded-lg bg-fuchsia-500/20 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-fuchsia-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 6a9 9 0 110 12A9 9 0 0112 6z"/></svg>
+                      </div>
+                      <h3 class="font-semibold">Price Watch</h3>
+                    </div>
+                    <span class="text-xs text-slate-400">Alerts</span>
+                  </div>
+                  <p class="text-sm text-slate-300 mb-4">Watchlist &amp; price alerts.</p>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Manage</button>
+                </article>
+
+                <!-- Notes -->
+                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-3">
+                      <div class="h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586L20 8.414V19a2 2 0 01-2 2z"/></svg>
+                      </div>
+                      <h3 class="font-semibold">Notes</h3>
+                    </div>
+                    <span class="text-xs text-slate-400">Personal</span>
+                  </div>
+                  <p class="text-sm text-slate-300 mb-4">Personal notes &amp; quick pins.</p>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Open</button>
+                </article>
+
+                <!-- Locke the Salesman (wide) -->
+                <article class="lg:col-span-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-3">
+                      <div class="h-10 w-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 7V5a3 3 0 016 0v2m-6 0h12l-1 13a2 2 0 01-2 2H9a2 2 0 01-2-2L6 7z"/>
+                        </svg>
+                      </div>
+                      <h3 class="font-semibold">Locke the Salesman</h3>
+                    </div>
+                    <span class="text-xs text-slate-400">Travelling NPC</span>
+                  </div>
+
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-slate-300/10 text-slate-300 text-xs">
+                      <span class="h-2 w-2 rounded-full bg-slate-400"></span> Offline
+                    </span>
+                    <span class="text-xs text-slate-400">next appearance: random (1st/2nd half of month)</span>
+                  </div>
+
+                  <ul class="text-sm text-slate-300 space-y-1 mb-4 list-disc list-inside">
+                    <li>Appears in a random world for <span class="text-slate-100">10 minutes</span>, then hops to another.</li>
+                    <li>Trades <span class="text-slate-100">locks → items</span> (e.g., Big/Huge Lock, Mystery Box, etc.).</li>
+                  </ul>
+
+                  <div class="grid grid-cols-2 gap-3 mb-4 text-sm">
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                      <p class="text-[11px] text-slate-400">Location</p>
+                      <p class="font-medium">—</p>
+                    </div>
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                      <p class="text-[11px] text-slate-400">World stay</p>
+                      <p class="font-medium">~10 minutes</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Stock list</button>
+                    <button aria-label="Notify me" class="p-2 rounded-lg bg-yellow-400/20 border border-yellow-400/30 hover:bg-yellow-400/30">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1"/>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+
+                <!-- Daily Challenge (full width) -->
+                <article class="md:col-span-2 lg:col-span-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-3">
+                      <div class="h-10 w-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h8m-4-4a5 5 0 005-5V5H7v7a5 5 0 005 5zM5 8a3 3 0 01-3-3V4h5v1a3 3 0 01-2 3zm14 0a3 3 0 003-3V4h-5v1a3 3 0 002 3z"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 class="font-semibold leading-tight">Daily Challenge</h3>
+                        <p class="text-xs text-slate-400">2h competition • starts every 25h</p>
+                      </div>
+                    </div>
+                    <span class="text-xs text-slate-400">Leaderboard updates ~20s</span>
+                  </div>
+
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-300 text-xs">
+                      <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span> Active now
+                    </span>
+                    <span class="text-xs text-slate-400">ends in 1h 24m</span>
+                  </div>
+
+                  <div class="mb-3">
+                    <span class="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10">Today: Fish Frenzy</span>
+                    <p class="mt-2 text-sm">Catch fish for points — <span class="text-slate-300">+1 point per lb</span> of fish caught.</p>
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="h-2 rounded-full bg-white/10">
+                      <div class="h-2 rounded-full bg-indigo-500/60" style="width: 45%"></div>
+                    </div>
+                    <div class="mt-1 flex justify-between text-[11px] text-slate-400">
+                      <span>You: 900 pts</span>
+                      <span>Time left: 1h 24m</span>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3 mb-4 text-sm">
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                      <p class="text-[11px] text-slate-400">Additional prizes</p>
+                      <p class="font-medium">Growtokens & Gems</p>
+                      <p class="text-[10px] text-slate-500">scaled by rank</p>
+                    </div>
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                      <p class="text-[11px] text-slate-400">Top rewards</p>
+                      <p class="font-medium">Board/Crown (Top 5/1)</p>
+                    </div>
+                  </div>
+
+                  <div class="flex gap-3">
+                    <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Rules</button>
+                    <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700">Leaderboard</button>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Right Rail -->
+            <div class="lg:w-80 lg:sticky lg:top-24 self-start space-y-6">
+              <!-- Role Quests -->
+              <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
+                <div class="flex items-start justify-between">
+                  <span class="text-xs px-2 py-1 rounded-full bg-cyan-500/20 text-cyan-300">Role Quests</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300/80">First quest gives a Growtoken</span>
+                </div>
+
+                <div class="mt-3 flex items-center gap-2">
+                  <span class="text-xs text-slate-300/90">Today’s Bonus Role:</span>
+                  <span class="text-xs px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-300">Farmer</span>
+                </div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span class="px-2 py-1 text-xs rounded-full bg-white/5 border border-white/10">Farmer</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-white/5 border border-white/10">Builder</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-white/5 border border-white/10">Surgeon</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-white/5 border border-white/10">Chef</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-white/5 border border-white/10">Fishing</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-white/5 border border-white/10">Star Captain</span>
+                </div>
+
+                <div class="mt-3 text-xs text-slate-400">
+                  Monday: <span class="text-slate-300">Jack of All Trades</span> — all roles receive bonus points.
+                </div>
+
+                <div class="mt-4 flex gap-3">
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">View roles</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700">Open Role Panel</button>
+                </div>
+              </div>
+
+              <!-- Daily Quest -->
+              <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
+                <div class="flex items-start justify-between">
+                  <span class="text-xs px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-300">Daily Quest</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300/80">Resets 00:00 GT</span>
+                </div>
+
+                <div class="mt-3 space-y-3">
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3 flex items-center gap-3">
+                    <div class="h-8 w-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20s5-2 5-9V4s-5 2-5 9v7zM17 20s-2-3-2-7 2-7 2-7"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">Lava Seed</p>
+                      <p class="text-xs text-slate-300/90">200 required</p>
+                    </div>
+                  </div>
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3 flex items-center gap-3">
+                    <div class="h-8 w-8 rounded-lg bg-fuchsia-500/20 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7l4-3 4 3 4-3 4 3v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">Sheep</p>
+                      <p class="text-xs text-slate-300/90">19 required</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4 flex gap-3">
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Details</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700">Open Quest Log</button>
+                </div>
+              </div>
+
+              <!-- Biweekly • Soul Stone Quest -->
+              <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
+                <div class="flex items-start justify-between">
+                  <span class="text-xs px-2 py-1 rounded-full bg-rose-500/20 text-rose-300">Biweekly</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300/80">Resets every 14 days</span>
+                </div>
+
+                <h3 class="mt-2 font-semibold">Soul Stone Quest</h3>
+                <p class="text-xs text-slate-400">Finish rotating objectives to earn <span class="text-slate-300">Soul Stones</span>.</p>
+
+                <div class="mt-3 grid grid-cols-2 gap-3 text-sm">
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p class="text-[11px] text-slate-400">Cycle</p>
+                    <p class="font-medium">#12 • Active</p>
+                  </div>
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p class="text-[11px] text-slate-400">Ends in</p>
+                    <p class="font-medium">6d 11h</p>
+                  </div>
+                </div>
+
+                <div class="mt-3 space-y-3">
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <div class="flex items-center justify-between text-sm">
+                      <p>Finish role quests</p><p class="text-xs text-slate-400">3/6</p>
+                    </div>
+                    <div class="mt-2 h-1.5 rounded bg-white/10 overflow-hidden">
+                      <div class="h-1.5 bg-rose-400/80 rounded" style="width:50%"></div>
+                    </div>
+                  </div>
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <div class="flex items-center justify-between text-sm">
+                      <p>Break/place blocks</p><p class="text-xs text-slate-400">1200/3000</p>
+                    </div>
+                    <div class="mt-2 h-1.5 rounded bg-white/10 overflow-hidden">
+                      <div class="h-1.5 bg-rose-400/80 rounded" style="width:40%"></div>
+                    </div>
+                  </div>
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <div class="flex items-center justify-between text-sm">
+                      <p>Harvest items/seeds</p><p class="text-xs text-slate-400">650/1500</p>
+                    </div>
+                    <div class="mt-2 h-1.5 rounded bg-white/10 overflow-hidden">
+                      <div class="h-1.5 bg-rose-400/80 rounded" style="width:43%"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p class="text-[11px] text-slate-400">Rewards</p>
+                    <p class="font-medium">Soul Stones</p>
+                  </div>
+                  <div class="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p class="text-[11px] text-slate-400">Progress</p>
+                    <p class="font-medium">2 / 5 objectives</p>
+                  </div>
+                </div>
+
+                <div class="mt-4 flex gap-3">
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Details</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-rose-500/90 hover:bg-rose-600">Open Quest</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div> <!-- /Container -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/5 backdrop-blur-xl border-t border-white/10 py-6 px-4 lg:px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="flex items-center space-x-4 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span class="text-sm text-slate-300">Growtopia Hub © 2025</span>
+          </div>
+          <div class="flex space-x-6">
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Terms</a>
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Privacy</a>
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">FAQ</a>
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div> <!-- /Wrapper -->
+</body>
+</html>

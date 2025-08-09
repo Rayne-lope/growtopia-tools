@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Growtopia Hub</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -111,13 +112,13 @@
             </div>
             <div class="flex-1 w-full">
               <div class="w-full max-w-2xl lg:max-w-none aspect-[16/4] bg-white/5 rounded-xl border border-white/10 overflow-hidden shadow-xl mx-auto">
-                <img src="\image\GarudaBanner2025.jpg" alt="Banner" class="w-full h-full object-cover opacity-90">
+                <img src="image/GarudaBanner2025.jpg" alt="Banner" class="w-full h-full object-cover opacity-90">
               </div>
             </div>
           </div>
         </section>
 
-       
+        <!-- Feature & Tools -->
         <section class="mb-10">
           <h2 class="text-2xl font-bold mb-6">Feature &amp; Tools</h2>
 
@@ -137,9 +138,7 @@
                     <span class="text-xs text-slate-400">WL/DL/GBL</span>
                   </div>
                   <p class="text-sm text-slate-300 mb-4">Counting Items.</p>
-                  <a href="calculator.html"
-   class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20"
-   role="button">Open</a>
+                  <a href="calculator.html" class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20" role="button">Open</a>
                 </article>
 
                 <!-- Profit Counter -->
@@ -154,9 +153,7 @@
                     <span class="text-xs text-slate-400">Track</span>
                   </div>
                   <p class="text-sm text-slate-300 mb-4">Track buy/sell &amp; net profit.</p>
-                  <a href="profiter-calculator.html"
-   class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20"
-   role="button">Open</a>
+                  <a href="profiter-calculator.html" class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20" role="button">Open</a>
                 </article>
 
                 <!-- Price Watch -->
@@ -328,36 +325,20 @@
                 </div>
               </div>
 
-              <!-- Daily Quest -->
+              <!-- Daily Quest (Dynamic) -->
               <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
                 <div class="flex items-start justify-between">
                   <span class="text-xs px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-300">Daily Quest</span>
                   <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300/80">Resets 00:00 GT</span>
                 </div>
 
-                <div class="mt-3 space-y-3">
-                  <div class="rounded-lg border border-white/10 bg-white/5 p-3 flex items-center gap-3">
-                    <div class="h-8 w-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20s5-2 5-9V4s-5 2-5 9v7zM17 20s-2-3-2-7 2-7 2-7"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p class="text-sm font-semibold">Lava Seed</p>
-                      <p class="text-xs text-slate-300/90">200 required</p>
-                    </div>
-                  </div>
-                  <div class="rounded-lg border border-white/10 bg-white/5 p-3 flex items-center gap-3">
-                    <div class="h-8 w-8 rounded-lg bg-fuchsia-500/20 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7l4-3 4 3 4-3 4 3v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p class="text-sm font-semibold">Sheep</p>
-                      <p class="text-xs text-slate-300/90">19 required</p>
-                    </div>
-                  </div>
+                <div id="dqWrap" class="mt-3 space-y-3">
+                  <div class="text-sm text-slate-400">Loading…</div>
+                </div>
+
+                <div class="mt-2 flex items-center justify-between text-[11px] text-slate-400">
+                  <span id="dqMeta">—</span>
+                  <a id="dqSource" class="underline hidden" target="_blank" rel="noopener">source</a>
                 </div>
 
                 <div class="mt-4 flex gap-3">
@@ -454,5 +435,88 @@
       </div>
     </footer>
   </div> <!-- /Wrapper -->
+
+  <!-- ===== DQ Fetcher (ganti <USERNAME>) ===== -->
+  <script>
+    const DQ_URLS = [
+      'https://Rayne-lope.github.io/growtopia-tools/dq.json',
+      'https://raw.githubusercontent.com/<USERNAME>/growtopia-tools/main/public/dq.json'
+    ];
+
+    async function loadDQ() {
+      const wrap = document.getElementById('dqWrap');
+      try {
+        const data = await fetchFirstOk(DQ_URLS);
+        renderDQ(data, false);
+        localStorage.setItem('dq_cache', JSON.stringify({ t: Date.now(), data }));
+      } catch (e) {
+        const cache = localStorage.getItem('dq_cache');
+        if (cache) {
+          const { data } = JSON.parse(cache);
+          renderDQ(data, true);
+        } else {
+          wrap.innerHTML = '<div class="text-sm text-slate-400">Belum ada data.</div>';
+          document.getElementById('dqMeta').textContent = '—';
+        }
+      }
+    }
+
+    async function fetchFirstOk(urls) {
+      let lastErr;
+      for (const u of urls) {
+        try {
+          const res = await fetch(u, { cache: 'no-store' });
+          if (!res.ok) throw new Error(res.status);
+          return await res.json();
+        } catch (err) { lastErr = err; }
+      }
+      throw lastErr || new Error('All sources failed');
+    }
+
+    function renderDQ(d, cached) {
+      const wrap = document.getElementById('dqWrap');
+      const meta = document.getElementById('dqMeta');
+      const source = document.getElementById('dqSource');
+
+      const items = (d && Array.isArray(d.items)) ? d.items : [];
+      if (!items.length) {
+        wrap.innerHTML = '<div class="text-sm text-slate-400">Data kosong.</div>';
+        meta.textContent = cached ? '(cached)' : '—';
+        source.classList.add('hidden');
+        return;
+      }
+
+      wrap.innerHTML = items.map((it, i) => `
+        <div class="rounded-lg border border-white/10 bg-white/5 p-3 flex items-center gap-3">
+          <div class="h-8 w-8 rounded-lg ${i % 2 ? 'bg-fuchsia-500/20' : 'bg-emerald-500/20'} flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ${i % 2 ? 'text-fuchsia-300' : 'text-emerald-300'}" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="${i % 2 ? 'M4 7l4-3 4 3 4-3 4 3v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7z' : 'M7 20s5-2 5-9V4s-5 2-5 9v7zM17 20s-2-3-2-7 2-7 2-7'}"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold">${escapeHtml(it.name || '—')}</p>
+            <p class="text-xs text-slate-300/90">
+              ${it.qty ?? '?'} required${it.price ? ` • est ${it.price} WL` : ''}
+            </p>
+          </div>
+        </div>
+      `).join('');
+
+      const ts = d && d.updatedAt ? new Date(d.updatedAt) : null;
+      meta.textContent = `${cached ? '(cached) ' : ''}${ts ? ts.toLocaleString() : ''}`;
+
+      if (d && d.source && d.source.url) {
+        source.href = d.source.url;
+        source.classList.remove('hidden');
+      } else {
+        source.classList.add('hidden');
+      }
+    }
+
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+    loadDQ();
+  </script>
 </body>
 </html>

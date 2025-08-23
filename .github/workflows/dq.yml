@@ -28,9 +28,7 @@ jobs:
           DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
           # Pastikan path ini sesuai dengan struktur folder Anda
           OUT_PATH: public/dq.json
-          # Menambahkan NODE_OPTIONS untuk mendukung ES Modules
-          NODE_OPTIONS: --experimental-json-modules
-        
+         
       - name: Check for changes
         id: git-diff
         run: |

@@ -28,6 +28,8 @@ jobs:
           DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
           # Pastikan path ini sesuai dengan struktur folder Anda
           OUT_PATH: public/dq.json
+          # Menambahkan NODE_OPTIONS untuk mendukung ES Modules
+          NODE_OPTIONS: --experimental-json-modules
         
       - name: Check for changes
         id: git-diff
@@ -41,4 +43,3 @@ jobs:
           commit_message: "Update daily quest data"
           # Ganti ini dengan path file JSON Anda
           file_pattern: 'public/dq.json'
-

@@ -11,6 +11,10 @@ if (!TOKEN || !CHANNEL) {
 
 const API = "https://discord.com/api/v10";
 
+/**
+ * Mengambil pesan terbaru dari kanal Discord.
+ * @returns {Promise<Array>} Array pesan dari Discord.
+ */
 async function fetchMessages() {
   const res = await fetch(`${API}/channels/${CHANNEL}/messages?limit=5`, {
     headers: { Authorization: `Bot ${TOKEN}` },
@@ -19,15 +23,13 @@ async function fetchMessages() {
   return res.json();
 }
 
-// pola teks (boleh kamu tweak kalau format TLN berubah)
-const reDQLine = /(\d+)\s+(.+?)\s+for\s+(\d+)\s+World Locks/gi;
-const reFinal = /Estimated Final Price:\s*([0-9]+)\s*[-–]\s*([0-9]+)/i;
-const reRole = /Role Day:\s*([A-Za-z ]+)/i;
-const rePred = /Price Prediction:\s*([A-Za-z]+)/i;
-const reTurn = /Turnout:\s*([A-Za-z]+)/i;
-const reDate = /Today's Date:\s*([\d]{2}\s\w+\s[\d]{4})/i;
-
+/**
+ * Mengurai teks dari pesan Discord untuk menemukan informasi Daily Quest.
+ * @param {object} msg Objek pesan dari Discord.
+ * @returns {object|null} Objek data DQ atau null jika tidak ditemukan.
+ */
 function parseDQ(msg) {
+  // Gabungkan semua teks dari konten pesan dan embed.
   const texts = [];
   if (msg.content) texts.push(msg.content);
   for (const e of msg.embeds || []) {
@@ -40,6 +42,14 @@ function parseDQ(msg) {
       }
   }
   const blob = texts.join("\n");
+
+  // Tambahkan regex yang lebih fleksibel
+  const reDQLine = /(\d+)\s+(.+?)\s+for\s+(\d+)\s+World Locks/gi;
+  const reFinal = /Estimated Final Price:\s*([0-9]+)\s*[-–]\s*([0-9]+)/i;
+  const reRole = /Role Day:\s*([A-Za-z ]+)/i;
+  const rePred = /Price Prediction:\s*([A-Za-z]+)/i;
+  const reTurn = /Turnout:\s*([A-Za-z]+)/i;
+  const reDate = /Today's Date:\s*([\d]{1,2}\s+\w+\s+\d{4})/i;
 
   const items = [];
   let m;

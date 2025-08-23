@@ -1,1 +1,11 @@
-{}
+{
+  "date": "09 August 2025",
+  "items": [
+    { "name": "200 Shallot Mustache", "qty": 13 },
+    { "name": "23 Steam Collector Seed", "qty": 7 }
+  ],
+  "roleDay": "Chef",
+  "estimatedFinalPrice": 19,
+  "source": "https://discord.com/channels/.../...", 
+  "fetchedAt": "2025-08-09T11:18:26.652Z"
+}

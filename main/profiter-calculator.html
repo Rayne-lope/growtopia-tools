@@ -5,38 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Growtopia Hub — Profit Counter</title>
 
-  <!-- Fonts -->
+  <!-- Menggunakan font Montserrat dan Poppins dari Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
+  <!-- Memuat Tailwind CSS dari CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { theme:{ extend:{ colors:{ primary:{50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e'} } } } }
+    // Konfigurasi Tailwind untuk menambahkan font dan warna kustom
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',
+              500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e'
+            }
+          },
+          fontFamily: {
+            sans: ['Poppins', 'ui-sans-serif', 'system-ui'],
+            heading: ['Montserrat', 'Poppins', 'ui-sans-serif']
+          }
+        }
+      }
+    }
   </script>
   <style>
-    :root{
-      --font-body:'Poppins',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji';
-      --font-heading:'Montserrat','Poppins',ui-sans-serif,system-ui;
-    }
+    /* CSS Kustom untuk rendering font dan sprite */
     body{ font-family:var(--font-body); }
     h1,h2,h3,.heading-font{ font-family:var(--font-heading); letter-spacing:.2px; }
     .wlimg{ display:inline-block; height:1rem; width:1rem; vertical-align:-3px; margin-left:.25rem; }
     .num { font-variant-numeric: tabular-nums; }
+    /* Memastikan tombol tab aktif memiliki gaya yang konsisten */
+    .tab-active-style {
+      background: rgba(255,255,255,.08);
+      box-shadow: inset 0 0 0 1px rgba(99,102,241,.4);
+      border-radius: .5rem;
+    }
+    .price-type-active {
+        background-color: #0c4a6e;
+        border-color: #0369a1;
+    }
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-[#0B1220] via-[#0E1B3B] to-[#1F2A44] text-slate-100">
 
   <!-- Sidebar -->
   <aside role="navigation"
-         class="fixed bottom-0 left-0 right-0 z-20 lg:fixed lg:inset-y-0 lg:left-0 lg:w-[72px] lg:h-screen
-                bg-white/5 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/10 shadow-xl
-                flex lg:flex-col justify-between items-center lg:py-8 px-4 lg:px-0">
+           class="fixed bottom-0 left-0 right-0 z-20 lg:fixed lg:inset-y-0 lg:left-0 lg:w-[72px] lg:h-screen
+                  bg-white/5 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/10 shadow-xl
+                  flex lg:flex-col justify-between items-center lg:py-8 px-4 lg:px-0">
     <div class="flex lg:flex-col gap-4 lg:gap-6 w-full lg:w-[72px] lg:items-center">
+      <!-- Logo (desktop) -->
       <div class="hidden lg:block">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
       </div>
 
+      <!-- Navigasi ke halaman lain -->
       <a href="hub.html" aria-label="Home" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
       </a>
@@ -45,7 +71,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
       </a>
 
-      <a href="profit-counter.html" aria-label="Profit Counter" aria-current="page" class="p-2 rounded-lg bg-white/10 ring-1 ring-indigo-500/40 flex items-center justify-center">
+      <!-- Tombol aktif untuk halaman ini -->
+      <a href="profiter-calculator.html" aria-label="Profit Counter" aria-current="page" class="p-2 rounded-lg bg-white/10 ring-1 ring-indigo-500/40 flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m0 0l3-3m-3 3l-3-3M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg>
       </a>
 
@@ -62,12 +89,12 @@
       </a>
     </div>
 
-  <a href="#" aria-label="Settings" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-    </svg>
-  </a>
+    <a href="#" aria-label="Settings" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+    </a>
   </aside>
 
   <!-- Wrapper -->
@@ -136,25 +163,22 @@
 
               <!-- Toolbar -->
               <div class="flex flex-wrap items-center gap-3 mb-5">
-                <!-- Side -->
+                <!-- Side (Buy/Sell) -->
                 <div class="inline-flex bg-white/5 border border-white/10 rounded-lg p-1">
-                  <button type="button" id="btnBuy"  class="px-3 py-1.5 text-sm rounded-md bg-emerald-600/80 text-white">Buy</button>
-                  <button type="button" id="btnSell" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10">Sell</button>
+                  <button type="button" id="btnBuy"  class="px-3 py-1.5 text-sm rounded-md bg-emerald-600/80 text-white transition-colors">Buy</button>
+                  <button type="button" id="btnSell" class="px-3 py-1.5 text-sm rounded-md bg-white/5 text-white transition-colors">Sell</button>
                 </div>
 
-                <!-- Price type -->
+                <!-- Price type (Per WL/Each WL) -->
                 <div class="inline-flex bg-white/5 border border-white/10 rounded-lg p-1">
-                  <input class="sr-only peer" type="radio" id="ptPer" name="priceType" value="per" checked>
-                  <label for="ptPer" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10 peer-checked:bg-indigo-600/90 peer-checked:text-white transition-colors">Per WL (x/1)</label>
-
-                  <input class="sr-only peer" type="radio" id="ptEach" name="priceType" value="each">
-                  <label for="ptEach" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10 peer-checked:bg-indigo-600/90 peer-checked:text-white transition-colors">Each WL</label>
+                  <button type="button" id="btnPer" class="px-3 py-1.5 text-sm rounded-md bg-indigo-600/90 text-white transition-colors">Per WL (x/1)</button>
+                  <button type="button" id="btnEach" class="px-3 py-1.5 text-sm rounded-md bg-white/5 text-white transition-colors">Each WL</button>
                 </div>
 
                 <!-- Round up -->
                 <div class="inline-flex bg-white/5 border border-white/10 rounded-lg p-1">
                   <input id="roundUp" type="checkbox" class="sr-only peer">
-                  <label for="roundUp" class="px-3 py-1.5 text-sm rounded-md bg-white/5 border border-white/10 hover:bg-white/10 peer-checked:bg-indigo-600/90 peer-checked:text-white transition-colors">
+                  <label for="roundUp" class="px-3 py-1.5 text-sm rounded-md bg-white/5 text-white peer-checked:bg-indigo-600/90 peer-checked:text-white transition-colors cursor-pointer">
                     Round up to whole <img src="../image/wl.png" class="wlimg" alt="WL">
                   </label>
                 </div>
@@ -357,7 +381,7 @@
     const fmt2 = n => Number(n).toLocaleString(undefined,{maximumFractionDigits:2});
     const nowTs = () => Date.now();
     const slug = s => (s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
-    const wlIcon = () => '<img src="../image/wl.png" alt="WL" class="wlimg pix">';
+    const wlIcon = () => '<img src="../image/wl.png" alt="WL" class="wlimg">';
     const wlHTML = n => `<span>${fmt2(n)}</span>${wlIcon()}`;
     const setHTML = (id, html) => { $(id).innerHTML = html; };
 
@@ -368,19 +392,59 @@
     // ===== UI state =====
     let side = 'buy';
     let priceType = 'per';
-    let activeTab = 'ledger';
 
-    $('btnBuy').onclick  = () => setSide('buy');
-    $('btnSell').onclick = () => setSide('sell');
+    // Mengatur status aktif untuk tombol Buy/Sell
+    const btnBuy = $('btnBuy');
+    const btnSell = $('btnSell');
     function setSide(s){
       side = s;
-      $('btnBuy').classList.toggle('bg-emerald-600/80', side==='buy');
-      $('btnSell').classList.toggle('bg-emerald-600/80', side==='sell');
-      $('btnBuy').classList.toggle('hover:bg-white/10', side!=='buy');
-      $('btnSell').classList.toggle('hover:bg-white/10', side!=='sell');
+      btnBuy.classList.toggle('bg-emerald-600/80', side==='buy');
+      btnSell.classList.toggle('bg-emerald-600/80', side==='sell');
+      btnBuy.classList.toggle('text-white', side==='buy');
+      btnSell.classList.toggle('text-white', side==='sell');
+      btnBuy.classList.toggle('bg-white/5', side!=='buy');
+      btnSell.classList.toggle('bg-white/5', side!=='sell');
       renderPreview();
     }
+    btnBuy.onclick  = () => setSide('buy');
+    btnSell.onclick = () => setSide('sell');
 
+    // Mengatur status aktif untuk tombol price type
+    const btnPer = $('btnPer');
+    const btnEach = $('btnEach');
+    function setPriceType(type){
+      priceType = type;
+      btnPer.classList.toggle('bg-indigo-600/90', priceType==='per');
+      btnEach.classList.toggle('bg-indigo-600/90', priceType==='each');
+      btnPer.classList.toggle('text-white', priceType==='per');
+      btnEach.classList.toggle('text-white', priceType==='each');
+      btnPer.classList.toggle('bg-white/5', priceType!=='per');
+      btnEach.classList.toggle('bg-white/5', priceType!=='each');
+
+      $('rateLabel').textContent = priceType==='per'
+        ? 'Rate (Per WL — x per 1 WL)'
+        : 'Rate (Each WL — WL per item)';
+      renderPreview();
+    }
+    btnPer.onclick = () => setPriceType('per');
+    btnEach.onclick = () => setPriceType('each');
+
+
+    let activeTab = 'ledger';
+    $('tabLedger').onclick   = ()=>{ activeTab='ledger'; tabRender(); };
+    $('tabInventory').onclick= ()=>{ activeTab='inventory'; tabRender(); };
+    function tabRender(){
+      $('tabLedger').classList.toggle('bg-indigo-600/90', activeTab==='ledger');
+      $('tabInventory').classList.toggle('bg-indigo-600/90', activeTab==='inventory');
+      $('tabLedger').classList.toggle('text-white', activeTab==='ledger');
+      $('tabInventory').classList.toggle('text-white', activeTab==='inventory');
+      $('tabLedger').classList.toggle('hover:bg-white/10', activeTab!=='ledger');
+      $('tabInventory').classList.toggle('hover:bg-white/10', activeTab!=='inventory');
+      $('panelLedger').classList.toggle('hidden', activeTab!=='ledger');
+      $('panelInventory').classList.toggle('hidden', activeTab!=='inventory');
+    }
+
+    // Kode yang memicu perubahan tampilan ketika input radio berubah
     document.querySelectorAll('input[name="priceType"]').forEach(r=>{
       r.addEventListener('change', ()=>{
         priceType = document.querySelector('input[name="priceType"]:checked').value;
@@ -402,15 +466,6 @@
       $(id).addEventListener('input', renderPreview);
     });
 
-    $('tabLedger').onclick   = ()=>{ activeTab='ledger'; tabRender(); };
-    $('tabInventory').onclick= ()=>{ activeTab='inventory'; tabRender(); };
-    function tabRender(){
-      $('tabLedger').classList.toggle('bg-indigo-600/90', activeTab==='ledger');
-      $('tabInventory').classList.toggle('bg-indigo-600/90', activeTab==='inventory');
-      $('panelLedger').classList.toggle('hidden', activeTab!=='ledger');
-      $('panelInventory').classList.toggle('hidden', activeTab!=='inventory');
-    }
-
     $('filterPeriod').addEventListener('change', renderAll);
     $('filterSide').addEventListener('change', renderAll);
     $('filterItem').addEventListener('change', renderAll);
@@ -418,7 +473,11 @@
     $('btnReset').onclick = resetForm;
     $('btnAdd').onclick   = addTransaction;
     $('btnClearAll').onclick = ()=>{
-      if (confirm('Hapus semua transaksi?')){ saveTx([]); renderAll(); }
+      // Menggunakan modal kustom sebagai ganti alert/confirm
+      showModal('Apakah Anda yakin ingin menghapus semua transaksi?', ()=>{
+        saveTx([]);
+        renderAll();
+      });
     };
     $('btnExport').onclick = exportCSV;
     $('btnImport').onclick = ()=> $('fileImport').click();
@@ -544,7 +603,8 @@
           while(remain>0 && lots.length){
             const lot=lots[0];
             const take=Math.min(remain, lot.qty);
-            costUsed += take*lot.unitCost;
+            const cost=take*lot.unitCost;
+            costUsed += cost;
             lot.qty -= take; remain -= take;
             if(lot.qty<=0) lots.shift();
           }
@@ -569,9 +629,9 @@
       const world= $('world').value.trim();
       const note = $('note').value.trim();
 
-      if (!item){ alert('Item cannot be empty.'); return; }
-      if (!(rate>0)){ alert('Rate must be > 0'); return; }
-      if (!(qty>0)){ alert('Quantity must be > 0'); return; }
+      if (!item){ showModal('Item cannot be empty.'); return; }
+      if (!(rate>0)){ showModal('Rate must be > 0'); return; }
+      if (!(qty>0)){ showModal('Quantity must be > 0'); return; }
 
       const wlTotal = calcWL({priceType, rate, qty, roundUp});
       const tx = loadTx();
@@ -580,7 +640,7 @@
         const {inventory} = rebuild(tx,{period:'all',sideFilter:'',itemFilter:''});
         const store = inventory[slug(item)];
         if (!store || store.qty < qty){
-          alert(`Not enough stock to sell.\nAvailable: ${fmt(store?store.qty:0)}, want: ${fmt(qty)}`);
+          showModal(`Not enough stock to sell.\nAvailable: ${fmt(store?store.qty:0)}, want: ${fmt(qty)}`);
           return;
         }
       }
@@ -605,8 +665,7 @@
       if (clearAll){
         $('itemName').value=''; $('rateValue').value=40; $('quantity').value=200;
         $('roundUp').checked=false; $('tags').value=''; $('world').value=''; $('note').value='';
-        document.querySelector('input[name="priceType"][value="per"]').checked = true;
-        priceType='per'; setSide('buy');
+        setPriceType('per'); setSide('buy');
       }
       setHTML('previewPrimary','—');
       setHTML('previewSecondary','Fill fields to see preview.');
@@ -641,7 +700,7 @@
     }
 
     function renderSummary(sum){
-      setHTML('sumPnl',     sum.trades? ((sum.pnl>=0?'+':'')+wlHTML(sum.pnl)) : '—');
+      setHTML('sumPnl',   sum.trades? ((sum.pnl>=0?'+':'')+wlHTML(sum.pnl)) : '—');
       setHTML('sumRevenue', sum.trades? wlHTML(sum.revenue) : '—');
       setHTML('sumCost',    sum.trades? wlHTML(sum.cost)    : '—');
       $('sumTrades').textContent = sum.trades? new Intl.NumberFormat().format(sum.trades) : '—';
@@ -695,7 +754,7 @@
           </div>
           <div class="flex items-center gap-2">
             <button data-edit="${t.id}"  class="px-2 py-1 text-xs rounded-lg bg-white/5 border border-white/10 hover:bg-white/10">Edit</button>
-            <button data-del="${t.id}"   class="px-2 py-1 text-xs rounded-lg bg-rose-500/20 border border-rose-500/30 hover:bg-rose-500/30 text-rose-200">Delete</button>
+            <button data-del="${t.id}"  class="px-2 py-1 text-xs rounded-lg bg-rose-500/20 border border-rose-500/30 hover:bg-rose-500/30 text-rose-200">Delete</button>
           </div>
         `;
         wrap.appendChild(row);
@@ -704,10 +763,14 @@
       wrap.querySelectorAll('[data-del]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const id=btn.getAttribute('data-del');
-          const tx=loadTx().filter(x=>x.id!==id);
-          saveTx(tx); renderAll();
+          showModal('Hapus transaksi ini?', ()=>{
+            const tx=loadTx().filter(x=>x.id!==id);
+            saveTx(tx);
+            renderAll();
+          });
         });
       });
+
       wrap.querySelectorAll('[data-edit]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const id=btn.getAttribute('data-edit');
@@ -715,11 +778,7 @@
           const t=tx.find(x=>x.id===id);
           if(!t) return;
           setSide(t.side);
-          document.querySelector(`input[name="priceType"][value="${t.priceType}"]`).checked = true;
-          priceType=t.priceType;
-          $('rateLabel').textContent = priceType==='per'
-            ? 'Rate (Per WL — x per 1 WL)'
-            : 'Rate (Each WL — WL per item)';
+          setPriceType(t.priceType);
           $('itemName').value=t.itemName;
           $('rateValue').value=t.priceValue;
           $('quantity').value=t.qty;
@@ -727,8 +786,11 @@
           $('tags').value=(t.tags||[]).join(', ');
           $('world').value=t.world||'';
           $('note').value=t.note||'';
-          saveTx(tx.filter(x=>x.id!==id));
-          renderAll();
+          showModal(`Yakin ingin mengedit transaksi ini? Ini akan menghapus transaksi lama dan membuat yang baru.`, ()=>{
+            saveTx(tx.filter(x=>x.id!==id));
+            addTransaction();
+            renderAll();
+          });
         });
       });
     }
@@ -781,7 +843,7 @@
     // ===== CSV Export/Import =====
     function exportCSV(){
       const tx=loadTx();
-      if(!tx.length){ alert('No data.'); return; }
+      if(!tx.length){ showModal('No data to export.'); return; }
       const header=['id','ts','side','itemName','qty','priceType','priceValue','roundUp','wlTotal','note','world','tags'];
       const rows=tx.map(t=>[
         t.id, t.ts, t.side, quote(t.itemName), t.qty, t.priceType, t.priceValue, (t.roundUp?1:0), t.wlTotal, quote(t.note||''), quote(t.world||''), quote((t.tags||[]).join('|'))
@@ -835,9 +897,42 @@
       }
       out.push(cur); return out;
     }
+    
+    // ===== Custom Modal (pengganti alert/confirm) =====
+    function showModal(message, onConfirm=null) {
+      const modalHtml = `
+        <div id="customModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4">
+          <div class="bg-[#1F2A44] border border-white/10 rounded-xl p-6 w-full max-w-sm text-center space-y-4">
+            <p class="text-slate-200">${message}</p>
+            <div class="flex justify-center gap-4">
+              <button id="modalConfirm" class="px-4 py-2 rounded-lg bg-indigo-600/90 hover:bg-indigo-700 text-white font-medium">OK</button>
+              ${onConfirm ? '<button id="modalCancel" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium">Cancel</button>' : ''}
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      const modal = $('customModal');
+      const confirmBtn = $('modalConfirm');
+      const cancelBtn = $('modalCancel');
+
+      confirmBtn.onclick = () => {
+        modal.remove();
+        if (onConfirm) onConfirm();
+      };
+      if (cancelBtn) {
+        cancelBtn.onclick = () => {
+          modal.remove();
+        };
+      }
+    }
+
 
     // init
-    setSide('buy'); tabRender(); renderAll();
+    setSide('buy'); 
+    setPriceType('per'); 
+    tabRender(); 
+    renderAll();
   </script>
 </body>
 </html>

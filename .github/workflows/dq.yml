@@ -1,33 +1,44 @@
-name: Fetch DQ
+name: Fetch Daily Quest
+
 on:
+  # Atur jadwal otomatis, misalnya setiap 30 menit
+  schedule:
+    - cron: '*/30 * * * *'
+  # Memungkinkan untuk menjalankan workflow secara manual dari GitHub UI
   workflow_dispatch:
 
 jobs:
-  fetch:
+  fetch-and-commit:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '18'
 
-      - name: Run fetch script
-    env:
-      DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-      DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
-    run: node scripts/fetch_dq.js
-
-      - name: Commit & push if changed
+      - name: Run DQ fetcher script
+        # DISCORD_BOT_TOKEN dan DISCORD_CHANNEL_ID harus Anda simpan di GitHub Secrets
+        run: node scripts/fetch_dq.js
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+          # Pastikan path ini sesuai dengan struktur folder Anda
+          OUT_PATH: public/dq.json
+        
+      - name: Check for changes
+        id: git-diff
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [[ `git status --porcelain` ]]; then
-            git add public/dq.json
-            git commit -m "chore: update dq.json [skip ci]"
-            git push
-          else
-            echo "No changes"
-          fi
+          git diff --quiet public/dq.json || echo "HAS_CHANGES=true" >> $GITHUB_ENV
+        
+      - name: Commit and push changes
+        if: env.HAS_CHANGES == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update daily quest data"
+          # Ganti ini dengan path file JSON Anda
+          file_pattern: 'public/dq.json'
+

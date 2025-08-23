@@ -5,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Growtopia Hub</title>
 
+  <!-- Menggunakan font Inter dari Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Memuat Tailwind CSS dari CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
+    // Konfigurasi Tailwind untuk menambahkan font dan warna kustom
     tailwind.config = {
       theme: {
         extend: {
@@ -15,41 +20,65 @@
               50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',
               500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e'
             }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
           }
         }
       }
     }
   </script>
+  <style>
+    /* Menambahkan beberapa efek visual untuk tampilan yang lebih premium */
+    .card-hover {
+      transition-property: transform, box-shadow;
+      transition-duration: 300ms;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-[#0B1220] via-[#0E1B3B] to-[#1F2A44] text-slate-100">
-  <!-- Sidebar -->
+  <!-- Sidebar, navigasi utama di sisi kiri layar -->
   <aside role="navigation" class="fixed bottom-0 left-0 right-0 z-20 lg:fixed lg:inset-y-0 lg:left-0 lg:w-[72px] lg:h-screen bg-white/5 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/10 shadow-xl flex lg:flex-col justify-between items-center lg:py-8 px-4 lg:px-0">
     <div class="flex lg:flex-col gap-4 lg:gap-6 w-full lg:w-[72px] lg:items-center">
-      <div class="hidden lg:block">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-        </svg>
-      </div>
-      <a href="#" aria-label="Home" aria-current="page" class="p-2 rounded-lg bg-white/10 ring-1 ring-indigo-500/40 flex items-center justify-center">
+      <!-- Mengganti SVG dengan logo placeholder yang lebih menarik -->
+      <a href="#" class="hidden lg:block">
+        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500/20 text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l1.6 4.8H18l-4 3 1.6 4.8L12 12.8l-4.4 3.8L9 14.8l-4.4-3.8 1.6-4.8L6 8l1.6-4.8L12 2z"></path>
+            <polygon points="12 2 12 12.8 17.6 15.6 18 10 13.6 6.8 12 2"></polygon>
+            <polygon points="12 2 6.4 6.8 6 10 12 12.8 12 2"></polygon>
+            <polygon points="12 12.8 4 14 7 21 12 12.8"></polygon>
+            <polygon points="12 12.8 17 21 20 14 12 12.8"></polygon>
+          </svg>
+        </div>
+      </a>
+      
+      <!-- Navigasi Utama -->
+      <a href="#" aria-label="Home" aria-current="page" class="p-2 rounded-lg bg-white/10 ring-1 ring-indigo-500/40 flex items-center justify-center transition-all duration-200">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
       </a>
-      <a href="calculator.html" aria-label="Calculator" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+      <a href="calculator.html" aria-label="Calculator" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center transition-all duration-200">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
       </a>
-      <a href="profiter-calculator.html" aria-label="Profit" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+      <a href="profiter-calculator.html" aria-label="Profit" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center transition-all duration-200">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </a>
-      <a href="#" aria-label="Role Quest" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+      <a href="#" aria-label="Role Quest" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center transition-all duration-200">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
       </a>
-      <a href="#" aria-label="Notes" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+      <a href="notes.html" aria-label="Notes" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center transition-all duration-200" role="button">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586L20 8.414V19a2 2 0 01-2 2z"/></svg>
       </a>
-      <a href="#" aria-label="Updates" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+      <a href="#" aria-label="Updates" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center transition-all duration-200">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </a>
     </div>
-    <a href="#" aria-label="Settings" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center">
+    <a href="#" aria-label="Settings" class="p-2 rounded-lg hover:bg-white/10 hover:ring-1 hover:ring-white/20 flex items-center justify-center transition-all duration-200">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -57,10 +86,10 @@
     </a>
   </aside>
 
-  <!-- Wrapper -->
+  <!-- Konten utama halaman di sisi kanan sidebar -->
   <div class="lg:ml-[72px] min-h-screen flex flex-col">
     <main class="flex-1 pb-20 lg:pb-0">
-      <!-- Top Bar -->
+      <!-- Top Bar: Bilah atas dengan kolom pencarian dan status online -->
       <header class="sticky top-0 z-30 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-lg/10 px-4 lg:px-6 py-3">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-4 flex-1 max-w-3xl mr-4">
@@ -70,9 +99,10 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              <input type="text" class="block w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" placeholder="Search items, players...">
+              <input type="text" class="block w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-200" placeholder="Search items, players...">
             </div>
 
+            <!-- Menggunakan aria-live="polite" untuk pembaca layar -->
             <div aria-live="polite" aria-label="Players online" class="hidden sm:flex items-center gap-2 bg-emerald-500/10 text-emerald-300 px-3 py-1.5 rounded-full border border-emerald-400/20 whitespace-nowrap">
               <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <span class="text-sm font-medium"><span class="tabular-nums font-semibold">94,438</span> online</span>
@@ -84,7 +114,7 @@
               <span class="text-sm font-medium text-slate-100">42.5 WL</span>
               <span class="text-xs text-slate-400">≈ $12.75</span>
             </div>
-            <button aria-label="Notifications" class="p-2 rounded-full hover:bg-white/10 hover:ring-1 hover:ring-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            <button aria-label="Notifications" class="p-2 rounded-full hover:bg-white/10 hover:ring-1 hover:ring-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all duration-200">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1"/>
               </svg>
@@ -99,7 +129,7 @@
 
       <!-- Container -->
       <div class="max-w-7xl mx-auto px-4 lg:px-6 py-6">
-        <!-- Hero -->
+        <!-- Hero: Bagian atas halaman dengan judul dan deskripsi -->
         <section class="mb-12">
           <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div class="flex-1">
@@ -111,8 +141,9 @@
               </div>
             </div>
             <div class="flex-1 w-full">
+              <!-- Memperbaiki gambar dengan `object-fit` yang lebih baik -->
               <div class="w-full max-w-2xl lg:max-w-none aspect-[16/4] bg-white/5 rounded-xl border border-white/10 overflow-hidden shadow-xl mx-auto">
-                <img src="image/GarudaBanner2025.jpg" alt="Banner" class="w-full h-full object-cover opacity-90">
+                <img src="https://placehold.co/1280x320/0E1B3B/0ea5e9?text=Growtopia+Hub+Banner" alt="Banner" class="w-full h-full object-cover opacity-90">
               </div>
             </div>
           </div>
@@ -121,13 +152,12 @@
         <!-- Feature & Tools -->
         <section class="mb-10">
           <h2 class="text-2xl font-bold mb-6">Feature &amp; Tools</h2>
-
           <div class="flex flex-col lg:flex-row gap-6 items-start">
             <!-- Left: Tools Grid -->
             <div class="flex-1 lg:max-w-3xl">
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Calculator -->
-                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                <!-- Card untuk setiap fitur -->
+                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl transition-all duration-300 card-hover">
                   <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center gap-3">
                       <div class="h-10 w-10 rounded-lg bg-indigo-500/20 flex items-center justify-center">
@@ -138,11 +168,10 @@
                     <span class="text-xs text-slate-400">WL/DL/GBL</span>
                   </div>
                   <p class="text-sm text-slate-300 mb-4">Counting Items.</p>
-                  <a href="calculator.html" class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20" role="button">Open</a>
+                  <a href="calculator.html" class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200" role="button">Open</a>
                 </article>
 
-                <!-- Profit Counter -->
-                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl transition-all duration-300 card-hover">
                   <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center gap-3">
                       <div class="h-10 w-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
@@ -153,11 +182,10 @@
                     <span class="text-xs text-slate-400">Track</span>
                   </div>
                   <p class="text-sm text-slate-300 mb-4">Track buy/sell &amp; net profit.</p>
-                  <a href="profiter-calculator.html" class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20" role="button">Open</a>
+                  <a href="profiter-calculator.html" class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200" role="button">Open</a>
                 </article>
 
-                <!-- Price Watch -->
-                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl transition-all duration-300 card-hover">
                   <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center gap-3">
                       <div class="h-10 w-10 rounded-lg bg-fuchsia-500/20 flex items-center justify-center">
@@ -168,11 +196,10 @@
                     <span class="text-xs text-slate-400">Alerts</span>
                   </div>
                   <p class="text-sm text-slate-300 mb-4">Watchlist &amp; price alerts.</p>
-                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Manage</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200">Manage</button>
                 </article>
 
-                <!-- Notes -->
-                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                <article class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl transition-all duration-300 card-hover">
                   <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center gap-3">
                       <div class="h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
@@ -183,11 +210,11 @@
                     <span class="text-xs text-slate-400">Personal</span>
                   </div>
                   <p class="text-sm text-slate-300 mb-4">Personal notes &amp; quick pins.</p>
-                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Open</button>
+                  <a href="notes.html" class="px-3 py-2 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200" role="button">Open </a> 
                 </article>
 
                 <!-- Locke the Salesman (wide) -->
-                <article class="lg:col-span-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                <article class="md:col-span-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl transition-all duration-300 card-hover">
                   <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center gap-3">
                       <div class="h-10 w-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
@@ -224,8 +251,8 @@
                   </div>
 
                   <div class="flex items-center gap-3">
-                    <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Stock list</button>
-                    <button aria-label="Notify me" class="p-2 rounded-lg bg-yellow-400/20 border border-yellow-400/30 hover:bg-yellow-400/30">
+                    <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200">Stock list</button>
+                    <button aria-label="Notify me" class="p-2 rounded-lg bg-yellow-400/20 border border-yellow-400/30 hover:bg-yellow-400/30 transition-all duration-200">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1"/>
                       </svg>
@@ -234,7 +261,7 @@
                 </article>
 
                 <!-- Daily Challenge (full width) -->
-                <article class="md:col-span-2 lg:col-span-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl hover:bg-white/10 transition">
+                <article class="md:col-span-2 lg:col-span-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl transition-all duration-300 card-hover">
                   <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center gap-3">
                       <div class="h-10 w-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
@@ -285,14 +312,14 @@
                   </div>
 
                   <div class="flex gap-3">
-                    <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Rules</button>
-                    <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700">Leaderboard</button>
+                    <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200">Rules</button>
+                    <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700 transition-all duration-200">Leaderboard</button>
                   </div>
                 </article>
               </div>
             </div>
 
-            <!-- Right Rail -->
+            <!-- Right Rail: Panel samping dengan informasi tambahan -->
             <div class="lg:w-80 lg:sticky lg:top-24 self-start space-y-6">
               <!-- Role Quests -->
               <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 shadow-xl">
@@ -320,8 +347,8 @@
                 </div>
 
                 <div class="mt-4 flex gap-3">
-                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">View roles</button>
-                  <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700">Open Role Panel</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200">View roles</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700 transition-all duration-200">Open Role Panel</button>
                 </div>
               </div>
 
@@ -342,8 +369,8 @@
                 </div>
 
                 <div class="mt-4 flex gap-3">
-                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Details</button>
-                  <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700">Open Quest Log</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200">Details</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-indigo-600/90 hover:bg-indigo-700 transition-all duration-200">Open Quest Log</button>
                 </div>
               </div>
 
@@ -407,8 +434,8 @@
                 </div>
 
                 <div class="mt-4 flex gap-3">
-                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20">Details</button>
-                  <button class="px-3 py-1.5 text-sm rounded-lg bg-rose-500/90 hover:bg-rose-600">Open Quest</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-200">Details</button>
+                  <button class="px-3 py-1.5 text-sm rounded-lg bg-rose-500/90 hover:bg-rose-600 transition-all duration-200">Open Quest</button>
                 </div>
               </div>
             </div>
@@ -422,101 +449,95 @@
       <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="flex items-center space-x-4 mb-4 md:mb-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            <span class="text-sm text-slate-300">Growtopia Hub © 2025</span>
+            <!-- Menggunakan logo yang konsisten -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l1.6 4.8H18l-4 3 1.6 4.8L12 12.8l-4.4 3.8L9 14.8l-4.4-3.8 1.6-4.8L6 8l1.6-4.8L12 2z"></path>
+              <polygon points="12 2 12 12.8 17.6 15.6 18 10 13.6 6.8 12 2"></polygon>
+              <polygon points="12 2 6.4 6.8 6 10 12 12.8 12 2"></polygon>
+              <polygon points="12 12.8 4 14 7 21 12 12.8"></polygon>
+              <polygon points="12 12.8 17 21 20 14 12 12.8"></polygon>
+            </svg>
+            <p class="text-sm text-slate-400">&copy; 2024 Growtopia Hub. All rights reserved.</p>
           </div>
-          <div class="flex space-x-6">
-            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Terms</a>
-            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Privacy</a>
-            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">FAQ</a>
-            <a href="#" class="text-sm text-slate-400 hover:text-slate-300">Contact</a>
+          <div class="flex space-x-4">
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-200 transition-colors">About</a>
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-200 transition-colors">Privacy Policy</a>
+            <a href="#" class="text-sm text-slate-400 hover:text-slate-200 transition-colors">Contact</a>
           </div>
         </div>
       </div>
     </footer>
-  </div> <!-- /Wrapper -->
+  </div>
 
-  <!-- ===== DQ Fetcher (ganti <USERNAME>) ===== -->
+  <!-- Skrip Daily Quest yang baru, mengambil data dari dq.json -->
   <script>
-    const DQ_URLS = [
-      'https://Rayne-lope.github.io/growtopia-tools/dq.json',
-      'https://raw.githubusercontent.com/<USERNAME>/growtopia-tools/main/public/dq.json'
-    ];
-
-    async function loadDQ() {
-      const wrap = document.getElementById('dqWrap');
-      try {
-        const data = await fetchFirstOk(DQ_URLS);
-        renderDQ(data, false);
-        localStorage.setItem('dq_cache', JSON.stringify({ t: Date.now(), data }));
-      } catch (e) {
-        const cache = localStorage.getItem('dq_cache');
-        if (cache) {
-          const { data } = JSON.parse(cache);
-          renderDQ(data, true);
-        } else {
-          wrap.innerHTML = '<div class="text-sm text-slate-400">Belum ada data.</div>';
-          document.getElementById('dqMeta').textContent = '—';
-        }
-      }
-    }
-
-    async function fetchFirstOk(urls) {
-      let lastErr;
-      for (const u of urls) {
-        try {
-          const res = await fetch(u, { cache: 'no-store' });
-          if (!res.ok) throw new Error(res.status);
-          return await res.json();
-        } catch (err) { lastErr = err; }
-      }
-      throw lastErr || new Error('All sources failed');
-    }
-
-    function renderDQ(d, cached) {
+    (function () {
       const wrap = document.getElementById('dqWrap');
       const meta = document.getElementById('dqMeta');
-      const source = document.getElementById('dqSource');
+      const aSrc = document.getElementById('dqSource');
 
-      const items = (d && Array.isArray(d.items)) ? d.items : [];
-      if (!items.length) {
-        wrap.innerHTML = '<div class="text-sm text-slate-400">Data kosong.</div>';
-        meta.textContent = cached ? '(cached)' : '—';
-        source.classList.add('hidden');
-        return;
+      // kecil2 buat keamanan teks
+      const esc = s => String(s ?? '').replace(/[&<>"']/g, m => (
+        { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]
+      ));
+
+      async function loadDQ() {
+        try {
+          // cache buster biar tidak kesangkut cache
+          const res = await fetch('../public/dq.json?ts=' + Date.now(), { cache: 'no-store' });
+          const dq = await res.json();
+
+          // Jika belum ada data dari workflow
+          if (!dq || !Array.isArray(dq.items) || dq.items.length === 0) {
+            wrap.innerHTML = `<div class="text-sm text-slate-400">Belum ada data.</div>`;
+            meta.textContent = '—';
+            aSrc.classList.add('hidden');
+            return;
+          }
+
+          // Render kartu item
+          wrap.innerHTML = dq.items.map(it => `
+            <div class="rounded-lg border border-white/10 bg-white/5 p-3 flex items-center gap-3">
+              <div class="h-8 w-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20s5-2 5-9V4s-5 2-5 9v7zM17 20s-2-3-2-7 2-7 2-7"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold">${esc(it.name)}</p>
+                <p class="text-xs text-slate-300/90">${esc(it.qty)} required</p>
+              </div>
+            </div>
+          `).join('');
+
+          // Meta bar (tanggal, role day, estimasi, waktu update)
+          const bits = [];
+          if (dq.date) bits.push(esc(dq.date));
+          if (dq.roleDay) bits.push('Role Day: ' + esc(dq.roleDay));
+          if (dq.estimatedFinalPrice != null) bits.push('Est. final: ' + esc(dq.estimatedFinalPrice) + ' WL');
+          const updated = dq.fetchedAt ? new Date(dq.fetchedAt).toLocaleString() : '';
+          meta.textContent = (bits.join(' • ') || '—') + (updated ? ` • updated ${updated}` : '');
+
+          // Sumber (kalau kamu isi field "source" di fetcher)
+          if (dq.source) {
+            aSrc.href = dq.source;
+            aSrc.textContent = 'source';
+            aSrc.classList.remove('hidden');
+          } else {
+            aSrc.classList.add('hidden');
+          }
+        } catch (e) {
+          wrap.innerHTML = `<div class="text-sm text-rose-300">Gagal memuat Daily Quest.</div>`;
+          meta.textContent = '—';
+          aSrc.classList.add('hidden');
+          console.error(e);
+        }
       }
 
-      wrap.innerHTML = items.map((it, i) => `
-        <div class="rounded-lg border border-white/10 bg-white/5 p-3 flex items-center gap-3">
-          <div class="h-8 w-8 rounded-lg ${i % 2 ? 'bg-fuchsia-500/20' : 'bg-emerald-500/20'} flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ${i % 2 ? 'text-fuchsia-300' : 'text-emerald-300'}" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="${i % 2 ? 'M4 7l4-3 4 3 4-3 4 3v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7z' : 'M7 20s5-2 5-9V4s-5 2-5 9v7zM17 20s-2-3-2-7 2-7 2-7'}"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-sm font-semibold">${escapeHtml(it.name || '—')}</p>
-            <p class="text-xs text-slate-300/90">
-              ${it.qty ?? '?'} required${it.price ? ` • est ${it.price} WL` : ''}
-            </p>
-          </div>
-        </div>
-      `).join('');
-
-      const ts = d && d.updatedAt ? new Date(d.updatedAt) : null;
-      meta.textContent = `${cached ? '(cached) ' : ''}${ts ? ts.toLocaleString() : ''}`;
-
-      if (d && d.source && d.source.url) {
-        source.href = d.source.url;
-        source.classList.remove('hidden');
-      } else {
-        source.classList.add('hidden');
-      }
-    }
-
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
-
-    loadDQ();
+      loadDQ();
+      // opsional: auto refresh tiap beberapa menit
+      // setInterval(loadDQ, 5 * 60 * 1000);
+    })();
   </script>
 </body>
 </html>
